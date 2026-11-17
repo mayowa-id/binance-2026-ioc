@@ -1,0 +1,23 @@
+services:
+  splunk:
+    image: splunk/splunk:latest
+    hostname: splunk-lab
+    environment:
+      SPLUNK_START_ARGS: --accept-license
+      SPLUNK_GENERAL_TERMS: --accept-sgt-current-at-splunk-com
+      SPLUNK_PASSWORD: ${SPLUNK_PASSWORD:?Copy .env.example to .env and set SPLUNK_PASSWORD}
+    ports:
+      - "127.0.0.1:${SPLUNK_WEB_PORT:-8000}:8000"
+      - "127.0.0.1:${SPLUNK_MGMT_PORT:-8089}:8089"
+    volumes:
+      - ./splunk_app/binance_ioc_detections:/opt/splunk/etc/apps/binance_ioc_detections
+      - splunk-var:/opt/splunk/var
+    healthcheck:
+      test: ["CMD", "/sbin/checkstate.sh"]
+      interval: 30s
+      timeout: 10s
+      start_period: 180s
+      retries: 20
+
+volumes:
+  splunk-var:
