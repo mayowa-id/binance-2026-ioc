@@ -1,0 +1,16 @@
+{
+  "fbi_wallets": {
+    "name": "FBI supplied primary-source copy",
+    "url": "https://www.fbi.gov/investigate/cyber/alerts/2026/north-korea-responsible-for-6-billion-binance-attack",
+    "retrieved_date": "2026-11-21",
+    "reviewed_date": "2026-11-21",
+    "sha256": "97f5c6538e641f869ac79ba0fd62d3a5200047b7d7692cbe94de31151c05767b",
+    "provided_date": "2026-11-17",
+    "snapshot_sha256": "a2a64656df27df0085e2de6302f1f2ae4ee70da50c8616ec427ee4e837c0e08a"
+  },
+  "binance_report": {
+    "name": "Binance preliminary investigation report",
+    "url": "https://www.binance.com/en/square/post/384314395829022",
+    "retrieved_date": "2026-11-21"
+  }
+}
