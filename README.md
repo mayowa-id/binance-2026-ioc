@@ -1,8 +1,10 @@
 # Binance public IOC detection lab
 
 A defensive Splunk portfolio project based on public indicators and documented
-behaviors from the October 2026 Binance incident. **Phase 1 foundation only:**
-no indicators, detection rules, fixtures, or detection test results exist yet.
+behaviors from the October 2026 Binance incident. **Phase 2 implemented:**
+628 sourced wallet indicators, provenance, normalization, and a generated lookup.
+Detection rules, synthetic event fixtures, and Splunk detection tests follow in
+later phases.
 
 ## Setup
 
@@ -39,18 +41,28 @@ image tag is mutable; record the version/digest when validating the runtime.
 ## Phase checkpoints
 
 1. Foundation (current): runtime acceptance pending.
-2. Source verification and IOC normalization.
+2. Source verification and IOC normalization (implemented; review checkpoint).
 3. Lookups, deterministic fixtures, and ingestion.
 4. Documented detection rules and scheduled searches.
 5. Splunk integration tests and generated results matrix.
 6. Dashboard and final documentation.
 
-Make targets `iocs`, `testdata`, `load`, `test`, and `all` are wired for later
-phases and will fail until their implementation files exist. Do not run
-`make all` as a Phase 1 check.
+Build and check the IOC pipeline without Splunk:
 
-Before Phase 2 normalization, supply `iocs/raw/fbi_wallets.txt`; optionally
-supply `iocs/raw/otx_pulse.csv` with its source URL. No indicators will be invented.
+```bash
+make iocs
+python3 -m unittest discover -s tests -p 'test_build_iocs.py' -v
+```
+
+See [IOC source records](iocs/SOURCES.md) for provenance and optional OTX input.
+The current master contains 628 wallet rows and 5 behavioral hypotheses; the
+active wallet lookup contains 628 rows. Nine offline pipeline tests pass.
+These are not Splunk detection tests.
+
+Make targets `testdata`, `load`, `test`, and `all` require later implementations.
+
+The supplied `iocs/raw/fbi_wallets.txt` has been reconciled against a retrieved
+official snapshot. Optional OTX input has not been supplied. No indicators are invented.
 Raw files are intended to be committed public inputs; inspect them before
 adding data. Credentials belong only in the ignored `.env`.
 
@@ -61,7 +73,7 @@ adding data. Credentials belong only in the ignored `.env`.
 - [Official Docker-Splunk setup](https://github.com/splunk/docker-splunk/blob/develop/docs/SETUP.md)
 - [Official app bind-mount instructions](https://github.com/splunk/docker-splunk/blob/develop/docs/advanced/APP_INSTALL.md)
 
-Reviewed on 2026-11-17. Full incident verification and IOC provenance belong to
-Phase 2; the FBI link is not yet a verified wallet-list source.
+Sources reviewed on 2026-11-21. The FBI address list has been reconciled in
+Phase 2; see the source records for exact verification semantics.
 
 MIT license; see [LICENSE](LICENSE). For authorized defensive use.
