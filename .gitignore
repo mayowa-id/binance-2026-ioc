@@ -1,0 +1,10 @@
+.env
+*.log
+__pycache__/
+*.py[cod]
+.venv/
+.DS_Store
+.pytest_cache/
+splunk-runtime/
+splunk_app/binance_ioc_detections/local/
+splunk_app/binance_ioc_detections/metadata/local.meta
